@@ -19,4 +19,8 @@ class Question < ApplicationRecord
     multiple_choice: 1,
     long_answer: 2
   }
+
+  def self.question_type_select
+    question_types.keys.map { |k| [k.titleize, k] }
+  end
 end

@@ -9,11 +9,10 @@ class SurveysController < ApplicationController
 
   def new
     @survey = Survey.new
-    @survey.questions.build
   end
 
   def create
-    @survey = Survey.new(survey_params)
+    @survey = Survey.create(survey_params)
     respond_to do |format|
       format.html { redirect_to @survey }
       format.json { render json: @survey }

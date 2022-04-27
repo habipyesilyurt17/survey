@@ -1,13 +1,30 @@
 <%= simple_form_for(@survey) do |f| %>
   <div class="row">
     <div class="form-inputs">
-      <%= f.input :name, input_html: {class: "form-control mb-3"} %>
+      <%= f.input :name, input_html: {class: "form-control mb-3"}, placeholder: "Survey name" %>
     </div>
-    <div class="new_record_button mb-5">
-      <%= link_to_add_fields("Add Question", f, :questions, "question") %>
-    </div>
+
+    <table class="w-100">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="fields">
+        <%= f.simple_fields_for :questions do |q| %>
+          <%= render 'question', f: q %>
+        <% end %>
+      </tbody>
+    </table>
+
     <div class="form-actions">
-      <%= f.button :submit, class: "btn btn-primary" %>
+      <div class="mb-3">
+        <%= link_to_add_row('Add Question', f, :questions, class: 'btn btn-primary') %>
+      </div>
+
+      <%= f.button :submit, class: "btn btn-success" %>
       <%= link_to 'Back', surveys_path, class: "btn btn-dark" %>
     </div>
   </div>

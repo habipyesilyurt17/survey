@@ -6,29 +6,32 @@
     <% end %>
   </div>
   <span class="w-100 mb-5 border border-bottom-1"></span>
-  
-  <% unless @surveys.present? %>
-    <p>Not yet any surveys</p>
-  <% else %>
+
+  <div style="width:650px">
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Survey Name</th>
-          <th scope="col">#</th>
         </tr>
       </thead>
       <tbody>
         <% @surveys.each do |survey| %>
           <tr>
             <td><%= survey.name %></td>
-            <th scope="row">
-              <span>Show</span>
-              <span>Edit</span>
-              <span>Destroy</span>
+            <th style="position: relative; float: right;">
+              <span>
+                <%= link_to 'Show', survey_path(survey), class:"btn btn-sm btn-dark" %>
+              </span>
+              <span>
+                <%= link_to 'Edit', edit_survey_path(survey), class:"btn btn-sm btn-primary" %>
+              </span>
+              <span>
+                <%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-sm btn-danger" %>
+              </span>
             </th>
           </tr>
         <% end %>
       </tbody>
     </table>
-  <% end  %>
+  </div>  
 </div>

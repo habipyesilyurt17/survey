@@ -1,23 +1,15 @@
-<h1>merhaba</h1>
-<div class="row">
-  <div class="form-inputs">
-    <%= f.input :question_type, as: :select, collection: Question.question_types, input_html: {class: "form-select form-select-lg mb-3"} %>
-  </div>
-  <div class="form-inputs">
-    <%= f.input :name, input_html: {class: "form-control mb-3"} %>
-  </div>
-
-  <div class="col-md-2 col-sm-1 col-xs-1">
-    <%= link_to "X", "#remove_form_list", class: "btn btn-danger remove_nested_item", data: { confirm: "Are you sure remove this ?" } %>
-    <%= f.hidden_field :id, label: false %>
-    <%= f.hidden_field :_destroy, class: "removable_item" %>
-  </div>
-</div>
-
-<script type="text/javascript">
-  $(document).on("click", ".remove_nested_item", function(event) {
-    $(this).parent().children('.removable_item')[0].value = "true";
-    $(this).closest(".eawb-routing-field").hide();
-    return event.preventDefault();
-  });
-</script>
+<tr>
+  <td>
+    <%= f.input_field :_destroy, as: :hidden %>
+    <%= link_to "X", '#', class: "remove_record btn btn-danger" %>
+  </td>
+  <td>
+    <%= f.input :question_type, as: :select, include_blank: false, collection: Question.question_type_select, input_html: {class: "form-select form-select-lg mb-3"} %>
+  </td>
+  <td>
+    <%= f.input :name, input_html: {class: "form-control mb-3"}, placeholder: "Question" %>
+  </td>
+  <td>
+    <%= link_to_add_row('Add Answer', f, :answers, class: 'btn btn-primary') %>
+  </td>
+</tr>
