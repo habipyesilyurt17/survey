@@ -1,10 +1,10 @@
 class SurveysController < ApplicationController
+  before_action :find_survey, only: [:show, :edit, :update, :destroy, :feedback]
   def index
     @surveys = Survey.all
   end
 
   def show
-    find_survey
   end
 
   def new
@@ -12,20 +12,19 @@ class SurveysController < ApplicationController
   end
 
   def create
-    @survey = Survey.create(survey_params)
-    respond_to do |format|
-      format.html { redirect_to @survey }
-      format.json { render json: @survey }
+    @survey = Survey.new(survey_params)
+    if @survey.save
+      respond_to do |format|
+        format.html { redirect_to @survey }
+        format.json { render json: @survey }
+      end
     end
   end
 
   def edit
-    find_survey
-    @survey.questions.build
   end
 
   def update
-    find_survey
     respond_to do |format|
       if @survey.update(survey_params)
         format.html { redirect_to @survey }
@@ -38,7 +37,6 @@ class SurveysController < ApplicationController
   end
 
   def destroy
-    find_survey
     @survey.destroy
     respond_to do |format|
       format.html { redirect_to action: "index" }
